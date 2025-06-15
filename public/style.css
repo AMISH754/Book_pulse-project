@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100..700;1,100..700&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+.icon-text{
+    font-family:"Vollkorn", serif;
+    color:#00ADB5;
+    font-size: 2rem;
+    margin-right:4rem;
+}
+h1{
+    font-family:"Vollkorn", serif;
+}
+h4{
+    font-family:"Vollkorn", serif;
+    margin-bottom:1rem;
+
+}
+h5{
+     font-family:"Vollkorn", serif;
+     margin-bottom:1rem;
+}
+.title-newpost{
+    text-align:center;
+    margin-bottom:1.8rem;
+}
+p{
+   font-family: "Josefin Slab", serif;
+   font-weight: 600;
+   font-size: 1.1rem;
+}
+.book-icon{
+    display:flex;
+    height:100px;
+    
+    
+
+}
+li{
+border-radius: 20px;
+transition: border-radius 0.3ms ease,
+            font-size 0.3ms ease,
+            background-color 0.3ms ease,
+            transform 0.3ms ease; /* Include transform for smooth transition */
+}
+li>a:hover{
+  border-radius:20px;
+ font-size: 1.1rem;
+  background-color:#8CCDEB;
+}
+li>a:active{
+    border-radius:20px;
+    background-color:#8F87F1;
+    transform: translateY(1px);
+}
+
+#main-body{
+
+    width:50rem;
+    margin:auto;
+    padding:3rem;
+    
+}
+.book-part img{
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    animation: fadeInOut 4s infinite alternate; /* 4s duration, repeats infinitely, alternates direction */
+}
+@keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1; 
+            }
+            100% {
+                opacity: 0; 
+            }
+        }
+
+br{
+    border:2rem dotted black;
+}
+.form-button{
+    display: flex;
+    gap:1rem;
+}
+.delete-button{
+    background-color:#F7374F;
+    padding:10px 8px;
+    border:none;
+    border-radius: 5px;
+}
+.delete-button:hover{
+    background-color: #990000;
+}
+.delete-button:active {
+    background-color: #990000; /* Even darker red when clicked */
+    transform: translateY(1px); /* Slight press effect on click */
+  }
+.edit-button{
+    background-color: #00ADB5;
+    padding:10px 8px;
+    border:none;
+    border-radius: 5px;
+}
+.edit-button:hover{
+    background-color:#8CCDEB;
+}
+.edit-button:active{
+    background-color: #8CCDEB;
+    transform:translateY(1px);
+}
+.footer-backgroundColor{
+    background-color:#222831;
+}
+.form-create-margin{
+     margin-top:2rem ;
+}
+.center-input{
+    display:block;
+    margin:auto;
+    font-size:2rem;
+    font-family:"Vollkorn", serif;
+    width:60%;
+    border:1px solid black;
+    padding:auto;
+    margin-bottom:2rem;
+    border-radius:5px;
+    resize:none;
+    height:50px;
+}
+.review-input{
+    display:block;
+     font-size:1.2rem;
+     font-weight: 600;
+      font-family: "Josefin Slab", serif;
+    width:60%;
+   height: 350px;
+   line-height: 125%;
+   resize: vertical;
+   margin:auto;
+   margin-bottom:2rem;
+   border:1px solid black;
+   border-radius:5px;
+   
+}
+
+#label-name{
+    font-family:"Vollkorn", serif;
+    margin-left:20%;
+    font-size:1.5rem;
+}
+
+
+.submit-btn{
+    display:block;
+    margin: auto;
+    font-size: 1.5rem;
+    background-color: #328E6E;
+    border:none;
+    border-radius: 5px;
+    padding:10px;
+}
+.submit-btn:hover{
+    background-color:#118B50;
+}
+.submit-btn:active{
+    background-color:#118B50;
+    transform: translateY(1px);
+}
+.index-form-margin{
+    margin-bottom:4rem;
+}
+.about-text{
+    text-align:center;
+    width:40%;
+}
+.about-image{
+    width:40%;
+    margin:auto;
+    border-radius:10px;
+    margin-bottom:1rem;
+}
+.about-flex{
+    margin:2rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
