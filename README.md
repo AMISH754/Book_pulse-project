@@ -1,4 +1,4 @@
-# First install npm packages by command
+# First install npm packages type command
 npm i
-# To run the server by command
+# To run the server type command
 nodemon index.js
