@@ -62,6 +62,23 @@ li>a:active{
     padding:3rem;
     
 }
+.index-text{
+    text-align:center;
+    width:40%;
+}
+.index-page-image{
+    width: 100%;
+    margin:auto;
+    border-radius:10px;
+    margin-bottom:1rem;
+}
+.index-flex{
+    margin:2rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
 .book-part img{
     float: left;
     margin-right: 1.5rem;
