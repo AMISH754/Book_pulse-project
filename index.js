@@ -66,9 +66,9 @@ app.get("/",async(req,res)=>{
 
   try {
     const result = await db.query(queryText, queryParams);
-    book = result.rows;
+    const booksList = result.rows;
     res.render("index.ejs", { 
-      content: book, 
+      content: booksList, 
       url: API_URL,
       searchQuery: searchQuery,
       currentSort: sortCriteria
@@ -131,8 +131,12 @@ app.post("/edit",async(req,res)=>{
   const editItem=parseInt(req.body.button);// contain id for the post to edited (cast to integer)
   try{
     const result=await db.query("SELECT * FROM books WHERE id=$1",[editItem]);
-    book=result.rows[0];
-    res.render("updatepost.ejs",{content:book});
+    if (result.rows.length === 0) {
+      console.log(`Warning: Book review with ID ${editItem} not found in database.`);
+      return res.redirect("/");
+    }
+    const bookToEdit = result.rows[0];
+    res.render("updatepost.ejs",{content:bookToEdit});
   }catch(error){
     console.log(error);
     res.status(500).send("Database Error loading edit form");
