@@ -1,5 +1,7 @@
 # BookPulse 📚
 
+🔗 Live Application: **[https://book-pulse-project.onrender.com/](https://book-pulse-project.onrender.com/)**
+
 BookPulse is a premium book review journal and library tracker. It allows you to document your reading journey, log detailed reviews, rate books, and view matching cover art automatically. 
 
 Built with a cozy, warm linen aesthetic, it features responsive card layouts, tactile animations, database sorting, and case-insensitive search.
