@@ -1,0 +1,117 @@
+<%- include("header.ejs") %>
+
+<section id="main-body">
+  <!-- Search and Sort bar is always visible if there is content in the DB, or if a search is active -->
+  <% if ((locals.content && content.length > 0) || (locals.searchQuery && searchQuery.trim() !== '')) { %>
+    <div class="control-bar mb-4">
+      <form action="/" method="GET" class="d-flex flex-wrap gap-3 align-items-center">
+        <div class="search-wrapper flex-grow-1 position-relative">
+          <input type="text" name="q" value="<%= searchQuery %>" placeholder="Search by book name or author..." class="form-input search-input" autocomplete="off">
+          <% if (searchQuery && searchQuery.trim() !== '') { %>
+            <a href="/" class="clear-search-btn" title="Clear Search">×</a>
+          <% } %>
+        </div>
+        
+        <div class="sort-wrapper d-flex align-items-center gap-2">
+          <select id="sort-select" name="sort" onchange="this.form.submit()" class="form-input sort-select">
+            <option value="newest" <%= currentSort === 'newest' ? 'selected' : '' %>>Newest First</option>
+            <option value="rating" <%= currentSort === 'rating' ? 'selected' : '' %>>Highest Rated</option>
+            <option value="alpha" <%= currentSort === 'alpha' ? 'selected' : '' %>>Alphabetical</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn py-2">Search</button>
+      </form>
+    </div>
+  <% } %>
+
+  <% if (locals.content && content.length > 0) { %>
+    <div class="book-list">
+      <% content.forEach(function (item) { %>
+        <div class="book-card">
+          <!-- Book Cover image -->
+          <% if (item.url_code && item.url_code.trim() !== '') { %>
+            <img src="<%= url + (item.url_code.startsWith('/') ? item.url_code : '/isbn/' + item.url_code) + '-M.jpg' %>" 
+                 class="image-book" 
+                 alt="<%= item.book_name %> cover" 
+                 onerror="this.onerror=null; this.src='/pictures/bookimg.jpg';" />
+          <% } else { %>
+            <img src="/pictures/bookimg.jpg" class="image-book" alt="default cover" />
+          <% } %>
+          
+          <div class="book-details">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <h2 class="book-title"><%= item.book_name %></h2>
+              <!-- Dynamic Star Rating -->
+              <div class="book-rating" title="<%= item.rating || 5 %> out of 5 stars">
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <span class="star <%= i <= (item.rating || 5) ? 'filled' : 'empty' %>">★</span>
+                <% } %>
+              </div>
+            </div>
+            
+            <p class="book-review"><%= item.review_body %></p>
+            
+            <div class="book-meta">
+              <span class="author-badge">By: <%= item.author %></span>
+              <span class="time-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-clock me-1 text-secondary" viewBox="0 0 16 16">
+                  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                </svg>
+                <% 
+                  let formattedDate = item.date_time;
+                  try {
+                    const parsed = new Date(item.date_time);
+                    if (!isNaN(parsed.getTime())) {
+                      formattedDate = parsed.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+                    }
+                  } catch(e) {}
+                %>
+                <%= formattedDate %>
+              </span>
+            </div>
+            
+            <div class="form-button">
+              <form action="/edit" method="post" class="edit-form">
+                <button name="button" type="submit" class="edit-button" value="<%= item.id %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-square me-2" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                  </svg>
+                  Edit
+                </button>
+              </form>
+              <form action="/delete" method="post" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this book review?');">
+                <button name="button" type="submit" class="delete-button" value="<%= item.id %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash me-2" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                  </svg>
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } else if (locals.searchQuery && searchQuery.trim() !== '') { %>
+    <div class="no-results-card text-center p-5">
+      <div class="no-results-icon mb-3">🔍</div>
+      <h3 class="mb-2">No reviews match your search</h3>
+      <p class="text-secondary mb-4">We couldn't find any results for "<strong><%= searchQuery %></strong>". Try checking the spelling or clear the search query.</p>
+      <a href="/" class="hero-btn">Clear Search Query</a>
+    </div>
+  <% } else { %>
+    <div class="hero-section">
+      <h1 class="hero-title">Your Literary Sanctuary Awaits</h1>
+      <p class="lead text-secondary mb-4">Start documenting your reading journey. Log reviews, store book codes for automatic cover fetching, and compile your personal reading list.</p>
+      <div class="hero-image-wrapper">
+        <img src="/pictures/indeximg.jpg" alt="No Reviews Yet" class="hero-image" />
+      </div>
+      <a href="/newpost" class="hero-btn">Create Your First Review</a>
+    </div>
+  <% } %>
+</section>
+
+<%- include("footer.ejs") %>
