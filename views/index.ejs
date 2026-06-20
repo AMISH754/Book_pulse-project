@@ -1,0 +1,53 @@
+ <%- include("header.ejs") %>
+ 
+ 
+ <section id="main-body" >
+        <div>
+        <div class="book-part border-bottom border-top py-5" >
+
+        <%if(locals.content){%>
+        <% content.forEach(function (item) { %>
+            
+        <img src=<%=url+item.url_code+"-M.jpg"%> class="image-book" alt="book-cover" />
+        <div >
+            
+        <h1><%=item.id%>. <%=item.book_name%>  </h1>
+        <p><%=item.review_body%> </p>
+         <h4 class="author-name">Author: <%=item.author%>  </h4>
+         <h5> Time of submission:  <%=item.date_time%></h5>
+         </div>
+        <div class="form-button index-form-margin ">
+         <form action="/delete" method="post" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this item?');" >
+         <button name="button" type="submit" class="delete-button" value="<%=item.id%>" >Delete</button>
+         </form>
+         <form class="edit-form" type="submit" action="/edit" method="post">
+         <button name="button" type="submit"  class="edit-button"  value="<%=item.id%>" >Edit</button>
+         </form>
+         </div>
+       
+         <% }); %>
+         <%}else{%>
+        <div class="index-flex">
+        
+            <div class="index-text" >
+        
+            
+                  <div>
+                     <h1 class="index-page-h1">Let's Get Started: Your New Post Awaits!</h1>
+                     <img src="./pictures/indeximg.jpg" alt="image at index page" class="index-page-image"/>
+
+
+
+                  </div>
+            </div>
+         </div>
+            
+            
+            
+            
+           <%}%>
+          </div>
+          </div>
+    </section>
+
+   <%-include("footer.ejs")%> 

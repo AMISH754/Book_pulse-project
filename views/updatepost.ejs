@@ -1,0 +1,30 @@
+<%- include("header.ejs") %>
+
+
+
+
+
+
+
+
+  <section id="create-review">
+     <div class="form-create-margin">
+     <h1 class="title-newpost">Unleash Your Inner Storyteller</h1>
+
+     <form action="/edit-post" method="POST" class="form-create">
+      <label id="label-name">Book Name:</label>
+      <input type="text" name="book-name" for="label-name" class="book-name-input center-input" value="<%=content.book_name%>" placeholder="Book-name" autocomplete="off">
+      <label id="label-name"> Book cover code:</label>
+      <input type="text" name="isbn" for="label-name" class="isbn-input center-input" value="<%=content.url_code%>"  placeholder="Eg= /isbn/code or /id/code or /olid/code" autocomplete="off">
+      <label id="label-name"> Text:</label>
+      <textarea name="body-review" for="label-name"  class="review-input"  placeholder="Review" autocomplete="off"><%=content.review_body%></textarea>
+      <label id="label-name">Author Name:</label>
+      <input type="text" name="author-name" for="label-name" class="center-input" value="<%=content.author%>" placeholder="reviewer-name" autocomplete="off"> 
+      <button type="submit" name="SUBMIT" value="<%=content.id%>" class="submit-btn">Save</button>
+      </form>
+      </div>
+    </section>
+
+
+
+<%- include("footer.ejs") %>
