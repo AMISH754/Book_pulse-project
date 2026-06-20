@@ -7,7 +7,7 @@ import path from "path";
 const app=express();
 const port=process.env.PORT || 3000;
  env.config();
-const db=new pg.Client(process.env.DATABASE_URL ? {
+const db=new pg.Pool(process.env.DATABASE_URL ? {
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
@@ -19,7 +19,6 @@ const db=new pg.Client(process.env.DATABASE_URL ? {
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
 });
-db.connect();
 
 
 
